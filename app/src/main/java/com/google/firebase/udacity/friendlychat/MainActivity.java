@@ -289,19 +289,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mAdView != null) {
-            mAdView.destroy();
         }
         super.onDestroy();
     }
