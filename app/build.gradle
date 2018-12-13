@@ -50,7 +50,6 @@ dependencies {
 
     //ads
     implementation 'com.google.android.gms:play-services-ads:17.1.2'
-    implementation 'com.google.firebase:firebase-ads:17.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

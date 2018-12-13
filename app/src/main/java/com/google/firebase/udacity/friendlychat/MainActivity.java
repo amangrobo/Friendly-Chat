@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //initialize admob
-        MobileAds.initialize(this, "ca-app-pub-1699170975060470~4964185363");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -220,12 +219,18 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
+        if (mAdView != null) {
+            mAdView.resume();
+        }
         super.onResume();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
     @Override
     protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
         super.onPause();
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         detachDatabaseReadListener();
@@ -290,5 +295,13 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }
